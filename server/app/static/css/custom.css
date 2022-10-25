@@ -1,0 +1,83 @@
+:root {
+  --color--accent: white;
+  --color--accent-light: #ebecf0;
+  --color--tint: #33C3F0;
+  --color--tint-light: #1FEEE6;
+  --color--highlight: transparent;
+  --color--highlight-light: transparent;
+  --color--success: #69b29c;
+  --color--warning: orange;
+  --color--error: #df6858;
+  --color--destructive: #f7403a;
+}
+
+html {
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+  background: linear-gradient(to top, #000000, #040404, #040404);
+}
+
+body {
+  color: var(--color--accent);
+}
+
+select {
+  color: white;
+  background-color: transparent;
+  border-color: white;
+}
+
+input[type="text"], textarea {
+  color: white;
+  background-color: transparent;
+  border-color: white;
+}
+
+input[type="text"]:focus {
+  border-color: white;
+}
+
+textarea:focus {
+  border-color: white;
+}
+
+.color--warning {
+  color: var(--color--warning);
+}
+
+.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 21%;
+}
+
+.button-primary-filled {
+  color: black;
+  background-color: white;
+  border-color: black;
+  cursor: default;
+}
+
+.button-primary-hollow {
+  background: none;
+  color: white;
+  border-color: white
+}
+
+.button-primary-hollow:hover {
+  background: none;
+  color: white;
+  border-color: white
+}
+
+.social-media {
+  width: 2.5em;
+  height: 2.5em;
+}

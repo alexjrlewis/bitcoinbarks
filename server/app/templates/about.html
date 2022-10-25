@@ -1,0 +1,33 @@
+{% set active_page = "about" %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="twelve columns">
+    <h2>About</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="twelve columns">
+    Looking after your dog made easy.
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="twelve columns">
+    <b>{{ config["COMPANY_NAME"] }}</b> is a fully insured dog walking service that started in Stockbridge, Edinburgh in 2020 and has since moved to Chiswick, London!
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="twelve columns">
+    Covering a 2.5-square-mile radius around the W4 region, <b>{{ config["COMPANY_NAME"] }}</b> offers a variety of services to accommodate you and your dog!
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="twelve columns">
+    Use the <a href="{{ url_for('contact_bp.get') }}">contact</a> form to book your W4 dog walk today or ask any questions!
+  </div>
+</div>
+{% endblock content %}

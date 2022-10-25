@@ -1,0 +1,8 @@
+*.DS_Store
+.env
+.coverage
+**/__pycache__/
+
+database/models.db
+
+server/venv

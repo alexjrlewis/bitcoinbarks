@@ -1,0 +1,182 @@
+{% set active_page = "pay" %}
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <!-- <div class="twelve columns"> -->
+  <div class="six columns">
+    <button class="button-primary-filled" id="pay-lnurl-button" onclick="togglePay();">
+      LNURL
+    </button>
+  </div>  
+  <div class="six columns">
+    <button class="button-primary-hollow" id="pay-invoice-button" onclick="togglePay();">
+      Invoice
+    </button>
+  </div>
+  <!-- </div> -->
+</div>
+<br>
+<br>
+
+<div id="pay-lnurl" style="display: block;">
+  <div class="row">
+    <div class="twelve columns">
+      <h2>LNURL</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <img src="{{ qrcode('bitcoin:' + data['address'] + '?amount=' + data['amount'], back_color='f2a900', fill_color='black') }}">
+    </div>
+  </div>
+</div>
+
+<div id="pay-invoice" style="display: block;">
+  <div class="row">
+    <div class="twelve columns">
+      <h2>Invoice</h2>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row"> -->
+  <!-- <div class="twelve columns"> -->
+    <!-- <b>Total amount</b>&nbsp; -->
+    <!-- {{ data["amount"] }} -->
+  <!-- </div> -->
+<!-- </div> -->
+
+<!-- <div class="row"> -->
+  <!-- <div class="twelve columns"> -->
+    <!-- <b>Order reference</b>&nbsp; -->
+    <!-- {{ data["reference"] }} -->
+  <!-- </div> -->
+<!-- </div> -->
+<!-- <br> -->
+
+<!-- <div class="row"> -->
+  <!-- <div class="twelve columns"> -->
+  <!-- <button class='{{"button-primary-filled" if True else "button-primary-hollow"}}'> -->
+    <!-- <i class="fa-brands fa-btc"></i>&nbsp;Bitcoin -->
+  <!-- </button> -->
+  <!-- <button class='{{"button-primary-filled" if False else "button-primary-hollow"}}'> -->
+    <!-- <i class="fa-solid fa-bolt"></i>&nbsp;Lightning -->
+  <!-- </button> -->
+  <!-- </div> -->
+<!-- </div> -->
+<!-- <br> -->
+
+
+<!-- <div class="row"> -->
+  <!-- <div class="twelve columns"> -->
+    <!-- <a href="javascript:void(0)" onclick="copyToClipboard('address'); return false;"><i class="fa-solid fa-copy"></i>&nbsp;&nbsp;{{ data['address'] }}</a> -->
+  <!-- </div> -->
+<!-- </div> -->
+
+
+<div class="row">
+  <div class="twelve columns">
+    <a href="https://legend.lnbits.com/", target="_blank">
+      <img style="height: 3em;" src="{{ url_for('static', filename='img/lnbits.png') }}">
+    </a>
+  </div>
+</div>
+
+
+
+<!-- <div class="row"> -->
+  <!-- <div class="twelve columns"> -->
+    <!-- <b>Amount</b> -->
+    <!-- <br> -->
+    <!-- <input type="number" name=""> -->
+    <!-- <b>Description</b> -->
+    <!-- <br> -->
+    <!-- <textarea class="u-full-width" maxlength="200" name="" placeholder="" required></textarea> -->
+    <!-- <br> -->
+    <!-- <br> -->
+    <!-- <h4>Basket</h4> -->
+    <!-- <ul> -->
+    <!-- {% for item in data["basket"]%} -->
+      <!-- <li><b>{{ item["quantity"] }}</b> × {{ item["sku-id"] }} <b>£{{ item["price"] }}</b></li> -->
+    <!-- {% endfor %} -->
+    <!-- </ul> -->
+    <!-- <b>Service</b> -->
+    <!-- &nbsp; -->
+    <!-- <select> -->
+      <!-- <option value="Please select one …" disabled selected>Service</option> -->
+      <!-- <option>foo</option> -->
+      <!-- <option>bar</option> -->
+      <!-- <option>baz</option> -->
+      <!-- <option>bam</option> -->
+    <!-- </select> -->
+    <!-- &nbsp; <input type="text" name="quantity" placeholder="Quantity" type="number"> -->
+    <!-- <br> -->
+    <!-- <br> -->
+    <!-- <b>Quantity</b>&nbsp; -->
+    <!-- <select> -->
+      <!-- <option value="Please select one …" disabled selected>Quantity</option> -->
+      <!-- <option>foo</option> -->
+      <!-- <option>bar</option> -->
+      <!-- <option>baz</option> -->
+      <!-- <option>bam</option> -->
+    <!-- </select> -->
+    <!-- &nbsp; -->
+    <!-- £ (quantity x Service.price) * (100 - discount) -->
+    <!-- <br> -->
+    <!-- <br> -->
+    <!-- <button onclick="addToBasket()">Add to basket</button> -->
+  <!-- </div> -->
+<!-- </div> -->
+<!-- <br> -->
+
+<!-- <div class="row"> -->
+  <!-- <div class="twelve columns"> -->
+    <!-- <h4>Invoice</h4> -->
+    <!-- <b>{{ data["memo"] }} ({{ data["exchange-rate"] }})</b> -->
+    <!-- <br> -->
+    <!-- {{ data["timestamp"] }} -->
+    <!-- <span class="color--warning">expires in: 300 seconds</span> -->
+    <!-- <br> -->
+    <!-- <br> -->
+    <!-- QR CODE -->
+    <!-- <br> -->
+    <!-- data = {{ data }} -->
+    <!-- data = {{ data }} -->
+    <!-- <br> -->
+  <!-- </div> -->
+<!-- </div> -->
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+
+  function resize(id) {
+      console.log("resize");
+      const element = document.getElementById(id);
+      element.style.width = window.getComputedStyle(element).width;
+  }
+  resize("myInput");
+
+  async function addToBasket() {
+    console.log("addToBasket");
+    console.log("data = ", data);
+    // data["basket"] = "yo";
+    const res = await axios
+      .get('http://0.0.0.0:3080/pay/basket',
+        { params: {"sku-id[]": 42, "quantity[]": 120, "price[]": 1241 } });
+    console.log('res = ', res);
+    console.log('res.data = ', res.data);
+    // window.location.reload();
+    const element = document.getElementById('html');
+    // element.innerHTML = "updated text";
+    element.innerHTML = res['data'];
+  }
+
+</script>
+
+{% endblock scripts %}
